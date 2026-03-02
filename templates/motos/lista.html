@@ -1,0 +1,170 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Catálogo de Motos - Yamaha{% endblock %}
+
+{% load static %}
+
+{% block content %}
+<section class="catalog-section">
+    <div class="container-main">
+        <a href="{% url 'home' %}" class="detail-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Volver al inicio
+        </a>
+
+        <h1 class="catalog-title">Nuestras Motos</h1>
+        <p class="catalog-subtitle">Explora nuestra selección de motocicletas Yamaha</p>
+
+        <!-- Filtros -->
+        <div class="filter-tabs">
+            <a href="{% url 'moto-lista' %}"
+               class="filter-tab {% if not categoria_actual %}active{% endif %}">
+                Todas
+            </a>
+            {% for codigo, nombre in categorias %}
+            <a href="{% url 'moto-lista' %}?categoria={{ codigo }}"
+               class="filter-tab {% if categoria_actual == codigo %}active{% endif %}">
+                {{ nombre }}
+            </a>
+            {% endfor %}
+        </div>
+
+        {% if motos %}
+        <div class="catalog-grid">
+            {% for moto in motos %}
+            <div class="moto-card">
+                <div class="moto-card-image">
+                    {% if moto.modelo == "NMAX 155" %}
+                    <div x-data="{ color: 'negra' }" class="color-switcher-card">
+                        <div class="moto-img-container">
+                            <img x-show="color === 'blanca'" src="{% static 'images/motos/nmax/blanca.avif' %}" alt="NMAX Blanca" class="moto-main-img">
+                            <img x-show="color === 'negra'" src="{% static 'images/motos/nmax/negra.avif' %}" alt="NMAX Negra" class="moto-main-img">
+                            <img x-show="color === 'plateada'" src="{% static 'images/motos/nmax/nmaxplateada.avif' %}" alt="NMAX Plateada" class="moto-main-img">
+                            <img x-show="color === 'roja'" src="{% static 'images/motos/nmax/roja.avif' %}" alt="NMAX Roja" class="moto-main-img">
+                        </div>
+                        <div class="color-dots">
+                            <button @click="color = 'blanca'" :class="color === 'blanca' ? 'active' : ''" class="color-dot" style="background:#E8E8E8;"></button>
+                            <button @click="color = 'negra'" :class="color === 'negra' ? 'active' : ''" class="color-dot" style="background:#1A1A1A;"></button>
+                            <button @click="color = 'plateada'" :class="color === 'plateada' ? 'active' : ''" class="color-dot" style="background:#C0C0C0;"></button>
+                            <button @click="color = 'roja'" :class="color === 'roja' ? 'active' : ''" class="color-dot" style="background:#DC2626;"></button>
+                        </div>
+                    </div>
+
+                    {% elif moto.modelo == "Aerox 155" %}
+                    <div x-data="{ color: 'negra' }" class="color-switcher-card">
+                        <div class="moto-img-container">
+                            <img x-show="color === 'negra'" src="{% static 'images/motos/aerox155/NEGRA.avif' %}" alt="Aerox Negro" class="moto-main-img">
+                            <img x-show="color === 'blanca'" src="{% static 'images/motos/aerox155/blanca.avif' %}" alt="Aerox Blanco" class="moto-main-img">
+                            <img x-show="color === 'gris'" src="{% static 'images/motos/aerox155/gris.avif' %}" alt="Aerox Gris" class="moto-main-img">
+                        </div>
+                        <div class="color-dots">
+                            <button @click="color = 'negra'" :class="color === 'negra' ? 'active' : ''" class="color-dot" style="background:#1A1A1A;"></button>
+                            <button @click="color = 'blanca'" :class="color === 'blanca' ? 'active' : ''" class="color-dot" style="background:#E8E8E8;"></button>
+                            <button @click="color = 'gris'" :class="color === 'gris' ? 'active' : ''" class="color-dot" style="background:#7B8794;"></button>
+                        </div>
+                    </div>
+
+                    {% elif moto.modelo == "MT-09 SP" %}
+                    <div class="moto-img-container">
+                        <img src="{% static 'images/motos/mt09/GRIS.avif' %}" alt="MT-09 SP" class="moto-main-img">
+                    </div>
+
+                    {% elif moto.modelo == "MT-07" %}
+                    <div x-data="{ color: 'azul' }" class="color-switcher-card">
+                        <div class="moto-img-container">
+                            <img x-show="color === 'azul'" src="{% static 'images/motos/mt07/azulmt07}.avif' %}" alt="MT-07 Azul" class="moto-main-img">
+                            <img x-show="color === 'negro'" src="{% static 'images/motos/mt07/negromt07.webp' %}" alt="MT-07 Negro" class="moto-main-img">
+                        </div>
+                        <div class="color-dots">
+                            <button @click="color = 'azul'" :class="color === 'azul' ? 'active' : ''" class="color-dot" style="background:#0066CC;"></button>
+                            <button @click="color = 'negro'" :class="color === 'negro' ? 'active' : ''" class="color-dot" style="background:#1A1A1A;"></button>
+                        </div>
+                    </div>
+
+                    {% elif moto.modelo == "YCZ 110" %}
+                    <div x-data="{ color: 'azul' }" class="color-switcher-card">
+                        <div class="moto-img-container">
+                            <img x-show="color === 'azul'" src="{% static 'images/motos/ycz110/azul-oscuro.avif' %}" alt="YCZ 110 Azul" class="moto-main-img">
+                            <img x-show="color === 'rojo'" src="{% static 'images/motos/ycz110/rojo.png' %}" alt="YCZ 110 Rojo" class="moto-main-img">
+                        </div>
+                        <div class="color-dots">
+                            <button @click="color = 'azul'" :class="color === 'azul' ? 'active' : ''" class="color-dot" style="background:#1E3A8A;"></button>
+                            <button @click="color = 'rojo'" :class="color === 'rojo' ? 'active' : ''" class="color-dot" style="background:#DC2626;"></button>
+                        </div>
+                    </div>
+
+                    {% elif moto.modelo == "YZF-R7" %}
+                    <div x-data="{ color: 'azul' }" class="color-switcher-card">
+                        <div class="moto-img-container">
+                            <img x-show="color === 'azul'" src="{% static 'images/motos/r7/azulr7.avif' %}" alt="YZF-R7 Azul" class="moto-main-img">
+                            <img x-show="color === 'negro'" src="{% static 'images/motos/r7/R7negro.avif' %}" alt="YZF-R7 Negro" class="moto-main-img">
+                        </div>
+                        <div class="color-dots">
+                            <button @click="color = 'azul'" :class="color === 'azul' ? 'active' : ''" class="color-dot" style="background:#0066CC;"></button>
+                            <button @click="color = 'negro'" :class="color === 'negro' ? 'active' : ''" class="color-dot" style="background:#1A1A1A;"></button>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <div class="moto-img-container">
+                        {% if moto.imagen %}
+                        <img src="{{ moto.imagen.url }}" alt="{{ moto.modelo }}" class="moto-main-img">
+                        {% else %}
+                        <div class="moto-no-image">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="moto-card-info">
+                    <div class="moto-card-header">
+                        <h3 class="moto-name">{{ moto.modelo|upper }}</h3>
+                        <div class="moto-meta">
+                            <span class="moto-year">Modelo {{ moto.anio }}</span>
+                            <span class="moto-meta-sep">&middot;</span>
+                            <span>{{ moto.color }}</span>
+                        </div>
+                    </div>
+
+                    <div class="moto-specs-row">
+                        <div class="spec-item">
+                            <div class="spec-top">
+                                <span class="spec-value">{{ moto.cilindrada }}</span> <span class="spec-unit">cc</span>
+                            </div>
+                            <span class="spec-label">Cilindraje</span>
+                        </div>
+                        <div class="spec-divider"></div>
+                        <div class="spec-item">
+                            <div class="spec-top">
+                                <span class="spec-value">{{ moto.get_categoria_display }}</span>
+                            </div>
+                            <span class="spec-label">Categoría</span>
+                        </div>
+                    </div>
+
+                    <div class="moto-price-row">
+                        <div>
+                            <span class="price-label">Desde</span>
+                            <span class="price-value">{{ moto.precio_formateado }}</span>
+                            <div style="font-size:11px;color:#888;margin-top:2px;">IVA del 19% incluido</div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{% url 'moto-detail' moto.pk %}" class="moto-card-link" aria-label="Ver detalles de {{ moto.modelo }}"></a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <h3>No se encontraron motos</h3>
+            <p>No hay motos disponibles en esta categoría.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,98 @@
+[
+{
+  "model": "motos.moto",
+  "pk": 7,
+  "fields": {
+    "modelo": "NMAX 155",
+    "anio": 2026,
+    "categoria": "scooter",
+    "precio": "16800000.00",
+    "cilindrada": 155,
+    "color": "Negro",
+    "stock": 5,
+    "imagen": "",
+    "created_at": "2026-02-09T17:35:30.944Z",
+    "updated_at": "2026-02-09T22:22:38.861Z"
+  }
+},
+{
+  "model": "motos.moto",
+  "pk": 8,
+  "fields": {
+    "modelo": "MT-09 SP",
+    "anio": 2026,
+    "categoria": "naked",
+    "precio": "72000000.00",
+    "cilindrada": 890,
+    "color": "Gris",
+    "stock": 3,
+    "imagen": "",
+    "created_at": "2026-02-09T17:36:02.884Z",
+    "updated_at": "2026-02-09T22:22:38.892Z"
+  }
+},
+{
+  "model": "motos.moto",
+  "pk": 9,
+  "fields": {
+    "modelo": "Aerox 155",
+    "anio": 2026,
+    "categoria": "scooter",
+    "precio": "12700000.00",
+    "cilindrada": 155,
+    "color": "Negro",
+    "stock": 8,
+    "imagen": "",
+    "created_at": "2026-02-09T17:36:02.891Z",
+    "updated_at": "2026-02-09T22:22:38.868Z"
+  }
+},
+{
+  "model": "motos.moto",
+  "pk": 10,
+  "fields": {
+    "modelo": "YCZ 110",
+    "anio": 2026,
+    "categoria": "scooter",
+    "precio": "6500000.00",
+    "cilindrada": 110,
+    "color": "Azul Oscuro",
+    "stock": 10,
+    "imagen": "",
+    "created_at": "2026-02-09T22:05:37.348Z",
+    "updated_at": "2026-02-09T22:22:38.875Z"
+  }
+},
+{
+  "model": "motos.moto",
+  "pk": 11,
+  "fields": {
+    "modelo": "YZF-R7",
+    "anio": 2026,
+    "categoria": "sport",
+    "precio": "58000000.00",
+    "cilindrada": 689,
+    "color": "Azul Racing",
+    "stock": 4,
+    "imagen": "",
+    "created_at": "2026-02-09T22:10:26.120Z",
+    "updated_at": "2026-02-09T22:22:38.901Z"
+  }
+},
+{
+  "model": "motos.moto",
+  "pk": 13,
+  "fields": {
+    "modelo": "MT-07",
+    "anio": 2026,
+    "categoria": "naked",
+    "precio": "50000000.00",
+    "cilindrada": 689,
+    "color": "Azul",
+    "stock": 6,
+    "imagen": "",
+    "created_at": "2026-02-09T22:16:18.244Z",
+    "updated_at": "2026-02-09T22:22:38.883Z"
+  }
+}
+]

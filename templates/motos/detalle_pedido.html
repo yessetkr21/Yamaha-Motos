@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Pedido {{ pedido.numero_pedido }} - Yamaha Motos{% endblock %}
+{% load static %}
+
+{% block content %}
+<section class="premium-page">
+    <div class="container-main">
+        <a href="{% url 'mis-pedidos' %}" class="detail-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Volver a Mis Pedidos
+        </a>
+
+        {% if messages %}
+        <div class="messages-container" style="max-width:800px;margin:0 auto 24px;">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="invoice-premium">
+            <!-- Invoice header -->
+            <div class="inv-p-header">
+                <div class="inv-p-header-left">
+                    <div class="inv-p-logo">YAMAHA</div>
+                    <div>
+                        <h1 class="inv-p-title">Pedido PED-{{ pedido.numero_pedido }}</h1>
+                        <p class="inv-p-date">{{ pedido.fecha|date:"d de F, Y" }}</p>
+                    </div>
+                </div>
+                <span class="status-badge status-{{ pedido.estado }}" style="font-size:0.85rem;padding:8px 20px;">{{ pedido.get_estado_display }}</span>
+            </div>
+
+            <!-- Two column info -->
+            <div class="inv-p-columns">
+                <div class="inv-p-col">
+                    <h3 class="inv-p-col-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Datos del Cliente
+                    </h3>
+                    <div class="inv-p-data-grid">
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Nombre</span>
+                            <span class="inv-p-value">{{ pedido.cliente.nombre }}</span>
+                        </div>
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Documento</span>
+                            <span class="inv-p-value">{{ pedido.cliente.numero_documento }}</span>
+                        </div>
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Email</span>
+                            <span class="inv-p-value">{{ pedido.cliente.email }}</span>
+                        </div>
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Ciudad</span>
+                            <span class="inv-p-value">{{ pedido.cliente.ciudad|default:"--" }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="inv-p-col">
+                    <h3 class="inv-p-col-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        Informacion de Factura
+                    </h3>
+                    <div class="inv-p-data-grid">
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">No. Factura</span>
+                            <span class="inv-p-value inv-p-factura-num">{{ factura.numero_factura }}</span>
+                        </div>
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Fecha</span>
+                            <span class="inv-p-value">{{ pedido.fecha|date:"d/m/Y H:i" }}</span>
+                        </div>
+                        <div class="inv-p-datum">
+                            <span class="inv-p-label">Estado</span>
+                            <span class="inv-p-value">{{ pedido.get_estado_display }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product table -->
+            <div class="inv-p-product">
+                <h3 class="inv-p-col-title" style="padding:20px 24px 16px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    Producto
+                </h3>
+                <div class="inv-p-product-row">
+                    <div class="inv-p-product-info">
+                        <h4>{{ pedido.moto.modelo|upper }}</h4>
+                        <p>{{ pedido.moto.anio }} &middot; {{ pedido.moto.color }} &middot; {{ pedido.moto.cilindrada }}cc &middot; {{ pedido.moto.get_categoria_display }}</p>
+                    </div>
+                    <div class="inv-p-product-qty">x{{ pedido.cantidad }}</div>
+                    <div class="inv-p-product-price">${{ pedido.precio_unitario|floatformat:0 }}</div>
+                </div>
+            </div>
+
+            <!-- Totals -->
+            <div class="inv-p-totals">
+                <div class="inv-p-total-row">
+                    <span>Subtotal</span>
+                    <span>${{ pedido.subtotal|floatformat:0 }}</span>
+                </div>
+                <div class="inv-p-total-row">
+                    <span>IVA (19%)</span>
+                    <span>${{ pedido.iva|floatformat:0 }}</span>
+                </div>
+                <div class="inv-p-total-row inv-p-total-final">
+                    <span>Total</span>
+                    <span>${{ pedido.total|floatformat:0 }}</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="inv-p-footer">
+                <p>Gracias por tu compra en Yamaha Motos Colombia</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
