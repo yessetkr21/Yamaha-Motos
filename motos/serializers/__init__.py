@@ -4,3 +4,6 @@ from .pedido_serializers import (
     PedidoSerializer, PedidoCreateSerializer, PedidoCambiarEstadoSerializer,
 )
 from .cita_serializers import CitaSerializer, CitaCreateSerializer
+from .pago_serializers import (
+    PagoSerializer, PagoIniciarSerializer, PagoConfirmarRetornoSerializer,
+)

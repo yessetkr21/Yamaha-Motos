@@ -3,6 +3,13 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+def env_bool(name: str, default: str = '1') -> bool:
+    """Parse boolean-like environment variables (1/true/yes/on)."""
+    return os.environ.get(name, default).strip().lower() in {
+        '1', 'true', 'yes', 'on'
+    }
+
 SECRET_KEY = 'django-insecure-local-dev-key-change-in-production'
 DEBUG = True
 
@@ -89,6 +96,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Payments
+MERCADOPAGO_ACCESS_TOKEN = os.environ.get('MERCADOPAGO_ACCESS_TOKEN', '').strip()
+MERCADOPAGO_USE_SANDBOX = env_bool('MERCADOPAGO_USE_SANDBOX', '1')
+PAYMENTS_FRONTEND_BASE_URL = os.environ.get(
+    'PAYMENTS_FRONTEND_BASE_URL',
+    'http://localhost:5173',
+)
+PAYMENTS_DEMO_MODE = env_bool('PAYMENTS_DEMO_MODE', '1')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

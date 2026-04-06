@@ -173,6 +173,44 @@ docker compose up --build
 
 Aplicacion disponible en: `http://localhost:8000`
 
+## Configurar Mercado Pago Real (no simulado)
+
+El proyecto viene en modo demo por defecto para poder probar el flujo sin credenciales.
+
+### 1. Crear archivo de entorno
+
+```bash
+# Linux/macOS
+cp .env.example .env
+
+# Windows CMD
+copy .env.example .env
+```
+
+### 2. Configurar variables en `.env`
+
+```env
+MERCADOPAGO_ACCESS_TOKEN=TEST-xxxxxxxxxxxxxxxx
+PAYMENTS_FRONTEND_BASE_URL=http://localhost:5173
+PAYMENTS_DEMO_MODE=0
+```
+
+- `PAYMENTS_DEMO_MODE=1`: usa pasarela simulada (`/pasarela-demo`).
+- `PAYMENTS_DEMO_MODE=0`: usa API real de Mercado Pago.
+
+### 3. Reiniciar servicios
+
+```bash
+docker compose down
+docker compose up --build
+```
+
+### 4. Validar que esta en real
+
+- Inicia una compra desde `Checkout`.
+- Si abre una pantalla interna `/pasarela-demo`, sigue en modo demo.
+- Si redirige a `mercadopago.com`, ya esta usando Mercado Pago real.
+
 ## Integracion Frontend + Backend
 
 - En desarrollo, Vite utiliza proxy para `/api` y `/media` hacia `localhost:8000`.

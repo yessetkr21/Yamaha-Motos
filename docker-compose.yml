@@ -9,6 +9,11 @@ services:
     container_name: yamaha-motos-web
     volumes:
       - .:/app
+    environment:
+      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
+      MERCADOPAGO_USE_SANDBOX: ${MERCADOPAGO_USE_SANDBOX:-1}
+      PAYMENTS_FRONTEND_BASE_URL: ${PAYMENTS_FRONTEND_BASE_URL:-http://localhost:5173}
+      PAYMENTS_DEMO_MODE: ${PAYMENTS_DEMO_MODE:-1}
     ports:
       - "8000:8000"
     restart: unless-stopped

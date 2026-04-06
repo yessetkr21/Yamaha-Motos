@@ -10,6 +10,11 @@ import Login from './pages/Login'
 import Registro from './pages/Registro'
 import AgendarCita from './pages/AgendarCita'
 import MisCitas from './pages/MisCitas'
+import CheckoutPedido from './pages/CheckoutPedido'
+import MisPedidos from './pages/MisPedidos'
+import MisPagos from './pages/MisPagos'
+import PagoResultado from './pages/PagoResultado'
+import PasarelaDemo from './pages/PasarelaDemo'
 
 function NotFound() {
   return (
@@ -35,6 +40,11 @@ export default function App() {
             <Route path="/registro" element={<Registro />} />
             <Route path="/citas/agendar" element={<AgendarCita />} />
             <Route path="/mis-citas" element={<MisCitas />} />
+            <Route path="/checkout" element={<CheckoutPedido />} />
+            <Route path="/mis-pedidos" element={<MisPedidos />} />
+            <Route path="/mis-pagos" element={<MisPagos />} />
+            <Route path="/pago/resultado" element={<PagoResultado />} />
+            <Route path="/pasarela-demo" element={<PasarelaDemo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

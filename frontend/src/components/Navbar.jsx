@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Home, Bike, Calendar, LogIn, CalendarCheck, LogOut } from 'lucide-react'
+import {
+  Home, Bike, Calendar, LogIn,
+  CalendarCheck, LogOut, CreditCard, Package,
+} from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
 const RED = '#E60012'
@@ -24,10 +27,13 @@ export default function Navbar() {
   const items = [
     { name: 'Inicio',        url: '/',               icon: Home },
     { name: 'Motos',         url: '/motos',          icon: Bike },
+    { name: 'Comprar',       url: '/checkout',       icon: CreditCard },
     { name: 'Agendar Cita',  url: '/citas/agendar',  icon: Calendar },
     ...(cliente
       ? [
           { name: 'Mis Citas',      url: '/mis-citas', icon: CalendarCheck },
+          { name: 'Mis Pedidos',    url: '/mis-pedidos', icon: Package },
+          { name: 'Mis Pagos',      url: '/mis-pagos', icon: CreditCard },
           { name: 'Cerrar Sesión',  url: null,         icon: LogOut, action: handleLogout },
         ]
       : [{ name: 'Iniciar Sesión', url: '/login', icon: LogIn }]

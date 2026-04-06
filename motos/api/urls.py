@@ -9,6 +9,10 @@ from .cita_views import (
     CitaListCreateAPIView, CitaDetailAPIView,
     CitaConfirmarAPIView, CitaCancelarAPIView,
 )
+from .pago_views import (
+    PagoListAPIView, PagoDetailAPIView,
+    PagoIniciarAPIView, PagoConfirmarRetornoAPIView,
+)
 
 app_name = 'api'
 
@@ -33,4 +37,10 @@ urlpatterns = [
     path('citas/<int:pk>/', CitaDetailAPIView.as_view(), name='cita-detail'),
     path('citas/<int:pk>/confirmar/', CitaConfirmarAPIView.as_view(), name='cita-confirmar'),
     path('citas/<int:pk>/cancelar/', CitaCancelarAPIView.as_view(), name='cita-cancelar'),
+
+    # Pagos
+    path('pagos/', PagoListAPIView.as_view(), name='pago-list'),
+    path('pagos/iniciar/', PagoIniciarAPIView.as_view(), name='pago-iniciar'),
+    path('pagos/confirmar-retorno/', PagoConfirmarRetornoAPIView.as_view(), name='pago-confirmar-retorno'),
+    path('pagos/<int:pk>/', PagoDetailAPIView.as_view(), name='pago-detail'),
 ]

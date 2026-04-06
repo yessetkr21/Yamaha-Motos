@@ -183,3 +183,57 @@ class Cita(models.Model):
 
     def __str__(self):
         return f"CITA {self.fecha} {self.hora} - {self.cliente} ({self.get_estado_display()})"
+
+
+class Pago(models.Model):
+    """Estado de pago de un pedido con soporte para pasarelas externas."""
+
+    ESTADO_CHOICES = [
+        ('creado', 'Creado'),
+        ('pendiente', 'Pendiente'),
+        ('aprobado', 'Aprobado'),
+        ('rechazado', 'Rechazado'),
+        ('cancelado', 'Cancelado'),
+    ]
+
+    GATEWAY_CHOICES = [
+        ('mercadopago', 'Mercado Pago'),
+    ]
+
+    pedido = models.OneToOneField(
+        Pedido, on_delete=models.PROTECT, related_name='pago'
+    )
+    gateway = models.CharField(
+        max_length=30, choices=GATEWAY_CHOICES, default='mercadopago'
+    )
+    estado = models.CharField(
+        max_length=20, choices=ESTADO_CHOICES, default='creado'
+    )
+    monto = models.DecimalField(
+        max_digits=12, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    moneda = models.CharField(max_length=3, default='COP')
+    external_reference = models.CharField(max_length=120, unique=True)
+    external_id = models.CharField(max_length=120, blank=True, null=True)
+    checkout_url = models.URLField(blank=True, default='')
+    detalle_estado = models.CharField(max_length=120, blank=True, default='')
+    metadata = models.JSONField(default=dict, blank=True)
+    paid_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Pago"
+        verbose_name_plural = "Pagos"
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['estado'], name='motos_pago_estado_idx'),
+            models.Index(fields=['gateway'], name='motos_pago_gateway_idx'),
+            models.Index(fields=['external_reference'], name='motos_pago_extref_idx'),
+        ]
+
+    def __str__(self):
+        return (
+            f"PAGO-{self.id} {self.pedido.numero_pedido} "
+            f"({self.get_estado_display()})"
+        )
