@@ -42,13 +42,14 @@ class PedidoBuilder:
         return self
 
     def calcular_totales(self):
-        """Calcula subtotal, IVA y total."""
+        """Calcula subtotal y total. El precio ya incluye IVA, no se suma de nuevo."""
         if self._moto is None:
             raise ValueError("Debe asignar una moto antes de calcular totales.")
         precio_unitario = self._moto.precio
         self._subtotal = (precio_unitario * self._cantidad).quantize(Decimal('0.01'))
-        self._iva = (self._subtotal * TASA_IVA).quantize(Decimal('0.01'))
-        self._total = (self._subtotal + self._iva).quantize(Decimal('0.01'))
+        # IVA ya incluido en el precio — se registra como referencia pero no se suma al total
+        self._iva = (self._subtotal - self._subtotal / (1 + TASA_IVA)).quantize(Decimal('0.01'))
+        self._total = self._subtotal
         return self
 
     def build(self) -> Pedido:

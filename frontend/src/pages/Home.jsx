@@ -90,7 +90,7 @@ function NmaxShowcase({ motos }) {
             <div className="showcase-actions">
               <Link to="/motos" className="btn-primary-yamaha">
                 Ver más detalles
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
               </Link>
               <a
                 href={`https://wa.me/593123456789?text=Hola%2C%20me%20interesa%20la%20NMAX%20155`}
@@ -98,7 +98,7 @@ function NmaxShowcase({ motos }) {
                 rel="noreferrer"
                 className="btn-whatsapp-sm"
               >
-                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.855L.054 23.27a.75.75 0 0 0 .926.926l5.415-1.479A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.528-5.215-1.444l-.374-.222-3.878 1.058 1.058-3.878-.222-.374A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
                 Cotizar por WhatsApp
               </a>
             </div>
@@ -165,7 +165,7 @@ export default function Home() {
           <div className="hero-video-buttons">
             <Link to="/motos" className="hero-btn-primary">
               Ver Catálogo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
             </Link>
             <Link to="/citas/agendar" className="hero-btn-secondary">
               Agendar Cita
@@ -272,40 +272,28 @@ export default function Home() {
 
       {/* Opiniones */}
       <section className="section-reviews" id="opiniones">
-        <div className="container-main">
-          <div className="reviews-header">
-            <h2 className="section-heading-lg"><strong>Lo que dicen nuestros clientes</strong></h2>
-            <div className="reviews-rating-summary">
-              <div className="stars-row">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="star-icon" viewBox="0 0 24 24" fill="#F59E0B">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                ))}
-              </div>
-              <div className="reviews-count">
-                <img src="https://www.google.com/favicon.ico" alt="Google" className="google-icon" />
-                <span>4.5 de 25 reseñas</span>
-              </div>
-            </div>
-          </div>
-          <div className="reviews-grid">
-            {REVIEWS.map((r, i) => (
+        <div className="reviews-header">
+          <h2 className="reviews-heading-dark">
+            <span>Lo que dicen</span>
+            <span>nuestros clientes.</span>
+          </h2>
+        </div>
+
+        <div className="reviews-marquee-outer">
+          <div className="reviews-marquee-track">
+            {[...REVIEWS, ...REVIEWS].map((r, i) => (
               <div key={i} className="review-card">
-                <p className="review-text"><em>{r.text}</em></p>
+                <div className="review-stars-top">
+                  {[...Array(5)].map((_, j) => (
+                    <svg key={j} className="star-icon" viewBox="0 0 24 24" fill="#F59E0B">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="review-text">{r.text}</p>
                 <div className="review-author">
                   <div className="review-avatar" style={{ background: r.color }}>{r.initial}</div>
-                  <div>
-                    <span className="review-name">{r.author}</span>
-                    <div className="review-stars-sm">
-                      {[...Array(5)].map((_, j) => (
-                        <svg key={j} className="star-sm" viewBox="0 0 24 24" fill="#F59E0B">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                      ))}
-                      <img src="https://www.google.com/favicon.ico" alt="G" className="google-icon-sm" />
-                    </div>
-                  </div>
+                  <span className="review-name">{r.author}</span>
                 </div>
               </div>
             ))}

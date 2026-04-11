@@ -97,14 +97,7 @@ export default function Login() {
 
           {/* Logo + título */}
           <div style={{ marginBottom: 40 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
-              <img
-                src="/static/images/logo-yamaha.png"
-                alt="Yamaha"
-                style={{ height: 28, filter: 'brightness(0) invert(1)' }}
-                onError={e => e.target.style.display = 'none'}
-              />
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>|</span>
+            <div style={{ marginBottom: 28 }}>
               <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, fontWeight: 600 }}>Mi cuenta</span>
             </div>
             <h1 style={{ color: '#fff', fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 8 }}>
