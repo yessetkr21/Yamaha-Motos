@@ -75,8 +75,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'data' / 'db.sqlite3',
+        'OPTIONS': {'timeout': 20},
+        'TEST': {'NAME': BASE_DIR / 'data' / 'test_db.sqlite3'},
     }
 }
+
+# Enable WAL mode for SQLite to reduce lock contention
+from django.db.backends.signals import connection_created
+from django.dispatch import receiver
+
+@receiver(connection_created)
+def set_sqlite_wal(sender, connection, **kwargs):
+    if connection.vendor == 'sqlite':
+        connection.cursor().execute('PRAGMA journal_mode=WAL;')
+        connection.cursor().execute('PRAGMA synchronous=NORMAL;')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
