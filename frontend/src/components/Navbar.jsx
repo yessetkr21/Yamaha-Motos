@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
@@ -14,12 +14,25 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const [isMobile, setIsMobile] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const lastY = useRef(0)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
+  }, [])
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY
+      if (y < 60) { setVisible(true); lastY.current = y; return }
+      setVisible(y < lastY.current)
+      lastY.current = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const handleLogout = () => { logout(); navigate('/') }
@@ -51,11 +64,13 @@ export default function Navbar() {
         position: 'fixed',
         top: 0,
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: `translateX(-50%) translateY(${visible ? '0' : '-120%'})`,
         zIndex: 200,
         paddingTop: 20,
         width: 'max-content',
         maxWidth: '95vw',
+        transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+        willChange: 'transform',
       }}
     >
       <div

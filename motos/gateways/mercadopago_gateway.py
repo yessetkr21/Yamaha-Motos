@@ -24,7 +24,7 @@ class MercadoPagoGateway(PaymentGateway):
         self.frontend_base = frontend_base or 'http://localhost:5173'
         self.demo_mode = getattr(settings, 'PAYMENTS_DEMO_MODE', True)
         self.use_sandbox = getattr(settings, 'MERCADOPAGO_USE_SANDBOX', True)
-        self.is_test_token = self.access_token.startswith('TEST-')
+        self.is_test_token = self.access_token.startswith(('TEST-', 'APP_USR-'))
 
     def create_checkout(self, pago) -> dict:
         if self.demo_mode or not self.access_token:

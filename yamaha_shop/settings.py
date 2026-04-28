@@ -1,7 +1,10 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 
 def env_bool(name: str, default: str = '1') -> bool:
@@ -10,8 +13,8 @@ def env_bool(name: str, default: str = '1') -> bool:
         '1', 'true', 'yes', 'on'
     }
 
-SECRET_KEY = 'django-insecure-local-dev-key-change-in-production'
-DEBUG = True
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-local-dev-key-change-in-production')
+DEBUG = env_bool('DJANGO_DEBUG', '1')
 
 ALLOWED_HOSTS = ['*']
 
@@ -38,6 +41,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,6 +96,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'
@@ -99,12 +104,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Payments
 MERCADOPAGO_ACCESS_TOKEN = os.environ.get('MERCADOPAGO_ACCESS_TOKEN', '').strip()
+MERCADOPAGO_PUBLIC_KEY = os.environ.get('MERCADOPAGO_PUBLIC_KEY', '').strip()
 MERCADOPAGO_USE_SANDBOX = env_bool('MERCADOPAGO_USE_SANDBOX', '1')
 PAYMENTS_FRONTEND_BASE_URL = os.environ.get(
     'PAYMENTS_FRONTEND_BASE_URL',
     'http://localhost:5173',
 )
-PAYMENTS_DEMO_MODE = env_bool('PAYMENTS_DEMO_MODE', '1')
+PAYMENTS_DEMO_MODE = env_bool('PAYMENTS_DEMO_MODE', '0')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

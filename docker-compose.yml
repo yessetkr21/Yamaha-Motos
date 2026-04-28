@@ -2,51 +2,39 @@ version: '3.8'
 
 services:
 
-  # ---------------------------------------------------------------------------
-  # Monolito Django (legado — /api/v1/ y frontend React)
-  # Base de datos: SQLite (db.sqlite3) montada via volumen
-  # ---------------------------------------------------------------------------
   web:
     image: yamaha-motos-app:latest
     build:
       context: .
       dockerfile: Dockerfile
     container_name: yamaha-motos-web
-    volumes:
-      - .:/app
     environment:
-      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
-      MERCADOPAGO_USE_SANDBOX: ${MERCADOPAGO_USE_SANDBOX:-1}
-      PAYMENTS_FRONTEND_BASE_URL: ${PAYMENTS_FRONTEND_BASE_URL:-http://localhost:5173}
-      PAYMENTS_DEMO_MODE: ${PAYMENTS_DEMO_MODE:-1}
+      DJANGO_DEBUG: "0"
+      MERCADOPAGO_ACCESS_TOKEN: "REDACTED_ACCESS_TOKEN"
+      MERCADOPAGO_PUBLIC_KEY: "REDACTED_PUBLIC_KEY"
+      MERCADOPAGO_USE_SANDBOX: "1"
+      PAYMENTS_DEMO_MODE: "0"
+      # ⚠ Cambia esta IP/dominio por el de tu instancia EC2 antes de hacer build
+      PAYMENTS_FRONTEND_BASE_URL: "http://localhost"
     expose:
       - "8000"
     restart: unless-stopped
 
-  # ---------------------------------------------------------------------------
-  # Microservicio Flask — Pagos (Strangler Pattern)
-  # Extrae el procesamiento de MercadoPago del monolito.
-  # Expuesto en /api/v2/pagos/ a través de Nginx.
-  # ---------------------------------------------------------------------------
   flask_payments:
     build:
       context: ./Taller02/flask_payments
       dockerfile: Dockerfile
     container_name: yamaha-flask-payments
     environment:
-      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
-      MERCADOPAGO_USE_SANDBOX: ${MERCADOPAGO_USE_SANDBOX:-1}
-      PAYMENTS_FRONTEND_BASE_URL: ${PAYMENTS_FRONTEND_BASE_URL:-http://localhost:5173}
-      PAYMENTS_DEMO_MODE: ${PAYMENTS_DEMO_MODE:-1}
+      MERCADOPAGO_ACCESS_TOKEN: "REDACTED_ACCESS_TOKEN"
+      MERCADOPAGO_PUBLIC_KEY: "REDACTED_PUBLIC_KEY"
+      MERCADOPAGO_USE_SANDBOX: "1"
+      PAYMENTS_DEMO_MODE: "0"
+      PAYMENTS_FRONTEND_BASE_URL: "http://localhost"
     expose:
       - "5000"
     restart: unless-stopped
 
-  # ---------------------------------------------------------------------------
-  # Nginx — Orquestador de tráfico (Strangler Facade)
-  # /api/v2/pagos/ → flask_payments:5000  (microservicio nuevo)
-  # /api/v1/       → web:8000             (monolito Django)
-  # ---------------------------------------------------------------------------
   nginx:
     image: nginx:1.25-alpine
     container_name: yamaha-nginx
