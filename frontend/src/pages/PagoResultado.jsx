@@ -103,9 +103,6 @@ export default function PagoResultado() {
               <button className="cita-submit-btn" onClick={() => navigate('/mis-pedidos')}>
                 Ver mis pedidos
               </button>
-              <button className="btn-outline-yamaha" onClick={() => navigate('/mis-pagos')}>
-                Ver mis pagos
-              </button>
               <Link to="/motos" className="btn-outline-yamaha" style={{ textAlign: 'center' }}>
                 Seguir comprando
               </Link>

@@ -24,7 +24,8 @@ COPY --from=frontend-builder /static/react/ ./static/react/
 EXPOSE 8000
 
 CMD ["sh", "-c", \
-  "python manage.py migrate --noinput && \
+  "mkdir -p /app/data && \
+   python manage.py migrate --noinput && \
    python manage.py collectstatic --noinput && \
    python manage.py loaddata fixtures/initial_data.json --ignorenonexistent || true && \
    gunicorn yamaha_shop.wsgi:application --bind 0.0.0.0:8000 --workers 2 --timeout 60"]

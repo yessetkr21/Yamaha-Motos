@@ -9,7 +9,10 @@ class ClienteService:
     def iniciar_sesion(email: str, numero_documento: str) -> Cliente:
         """Autentica un cliente por email y numero de documento."""
         try:
-            cliente = Cliente.objects.get(email=email, numero_documento=numero_documento)
+            cliente = Cliente.objects.get(
+                email__iexact=email.strip(),
+                numero_documento=numero_documento.strip(),
+            )
             return cliente
         except Cliente.DoesNotExist:
             return None

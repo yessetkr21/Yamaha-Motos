@@ -6,10 +6,10 @@ import { clientesApi, motosApi, pagosApi, pedidosApi } from '../services/api'
 import bancolombiaLogo from '../assets/bancolombia.png'
 import visaLogo from '../assets/visa.jpg'
 import mercadoPagoLogo from '../assets/mercadopago.png'
-import pseLogo from '../assets/pse.jpg'
+import pseLogo from '../assets/pse.jfif'
 
 export default function CheckoutPedido() {
-  const { cliente, login } = useAuth()
+  const { cliente, login, logout } = useAuth()
   const [params] = useSearchParams()
   const navigate = useNavigate()
 
@@ -47,7 +47,14 @@ export default function CheckoutPedido() {
   }
 
   const ensureCliente = async () => {
-    if (cliente) return cliente
+    if (cliente) {
+      try {
+        const verified = await clientesApi.get(cliente.id)
+        return verified
+      } catch {
+        logout()
+      }
+    }
     const loginPayload = { email: form.email, numero_documento: form.numero_documento }
     try {
       const existing = await clientesApi.login(loginPayload)

@@ -8,6 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: yamaha-motos-web
+    volumes:
+      - db_data:/app/data
     environment:
       DJANGO_DEBUG: "0"
       MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN}
@@ -46,3 +48,6 @@ services:
       - web
       - flask_payments
     restart: unless-stopped
+
+volumes:
+  db_data:

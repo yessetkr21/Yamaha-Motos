@@ -46,7 +46,6 @@ export default function Navbar() {
       ? [
           { name: 'Mis Citas',      url: '/mis-citas', icon: CalendarCheck },
           { name: 'Mis Pedidos',    url: '/mis-pedidos', icon: Package },
-          { name: 'Mis Pagos',      url: '/mis-pagos', icon: CreditCard },
           { name: 'Cerrar Sesión',  url: null,         icon: LogOut, action: handleLogout },
         ]
       : [{ name: 'Iniciar Sesión', url: '/login', icon: LogIn }]
